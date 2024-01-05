@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ThreeSceneComponent } from './three-scene.component';
+import { ThreeSceneComponent } from './ThreeSceneComponent';
 
 describe('ThreeSceneComponent', () => {
   let component: ThreeSceneComponent;
@@ -11,7 +11,7 @@ describe('ThreeSceneComponent', () => {
       imports: [ThreeSceneComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(ThreeSceneComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

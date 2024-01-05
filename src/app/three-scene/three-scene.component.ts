@@ -15,20 +15,50 @@ export class ThreeSceneComponent implements AfterViewInit {
   @ViewChild('myCanvas') private canvasRef!: ElementRef;  // Notice the "!" after "ElementRef"
 
   private scene!:     THREE.Scene;
+  torus!:             THREE.Mesh<THREE.TorusGeometry, THREE.MeshBasicMaterial, THREE.Object3DEventMap>;
+  pointLight!:        THREE.AmbientLight;
+
   private camera!:    THREE.OrthographicCamera;
   private renderer!:  THREE.WebGLRenderer;
 
+  controls!: OrbitControls;
+
 
   constructor(){
+    this.initTorus();
+    this.initLight();
+
     this.initScene();
     this.initCamera();
+    // this.initControls();
     this.preInitRenderer();
+  }
+    initControls() {
+      this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+    }
+
+  initTorus() {
+    const geometry  = new THREE.TorusGeometry(11,3,16,100)
+    const material  = new THREE.MeshBasicMaterial({color: 0xFF6347, wireframe: true});
+    this.torus      = new THREE.Mesh(geometry, material);
+  }
+
+  initLight(){
+    this.pointLight  = new THREE.AmbientLight(0xffffff);
+    this.pointLight.position.set(5,5,5);
   }
 
   initScene() {
-    this.scene = new THREE.Scene();
+    this.scene            = new THREE.Scene();
     this.scene.background = new THREE.Color(0x000000);
+    this.addToScene();
   }
+
+  addToScene() {
+    this.scene.add(this.torus);
+    this.scene.add(this.pointLight);
+  }
+
 
   initCamera() {
     const aspect  =   calculateRatio();   // const camera    = new THREE.OrthographicCamera(75, aspect, 0.1, 1000);
@@ -47,49 +77,22 @@ export class ThreeSceneComponent implements AfterViewInit {
   ngAfterViewInit(): void {
 
     this.postInitRender();
-
-    this.camera.position.setZ(30);
-    this.camera.position.setX(-30);
-    this.camera.position.setY(-300);
-
-    const geometry  = new THREE.TorusGeometry(11,3,16,100)
-    // const material  = new THREE.MeshBasicMaterial({color: 0xFF6347, wireframe: true});
-    const material  = new THREE.MeshStandardMaterial({color: 0xFF6347});
-    const torus     = new THREE.Mesh(geometry, material);
-
-
-    this.scene.add(torus);
-    const pointLight  = new THREE.AmbientLight(0xffffff);
-    pointLight.position.set(5,5,5);
-    this.scene.add(pointLight);
-
-    const controls = new OrbitControls(this.camera, this.renderer.domElement);
-
-    controls.addEventListener('change', this.render); // use if there is no animation loop
-
-      controls.minDistance = 20;
-      controls.maxDistance = 500;
-      controls.enablePan = true;
-
+    this.postInitControl();
 
 
       // Render-Schleife
-      const animate = () => {
-        requestAnimationFrame(animate);
-
-        torus.rotation.x += 0.01;
-        torus.rotation.y += 0.005;
-        torus.rotation.z += 0.01;
-
-        // Hier könnten Sie die Logik für Bewegungen oder Interaktionen hinzufügen
-
-        this.renderer.render(this.scene, this.camera);
-        controls.update();
-        // animate();
-        console.log("animating");
-      };
-      animate();
+    this.animate();
   }
+  postInitControl() {
+    this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+
+    this.controls.addEventListener('change', this.render); // use if there is no animation loop
+
+      this.controls.minDistance = 20;
+      this.controls.maxDistance = 500;
+      this.controls.enablePan = true;
+  }
+
 
   postInitRender() {
     this.renderer  = new THREE.WebGLRenderer({
@@ -101,6 +104,22 @@ export class ThreeSceneComponent implements AfterViewInit {
   }
 
 
+      animate() {
+        requestAnimationFrame(this.animate);
+
+        this.torus.rotation.x += 0.01;
+        this.torus.rotation.y += 0.005;
+        this.torus.rotation.z += 0.01;
+
+        // Hier könnten Sie die Logik für Bewegungen oder Interaktionen hinzufügen
+
+        this.renderer.render(this.scene, this.camera);
+        // this.controls.update();
+        // animate();
+        console.log("animating");
+      };
+
+
   render() {
     if(this.renderer){
       this.renderer.render(this.scene, this.camera);
@@ -110,6 +129,6 @@ export class ThreeSceneComponent implements AfterViewInit {
 
 }
 
-  function calculateRatio() {
-    return window.innerHeight / window.innerWidth;
-  }
+function calculateRatio() {
+  return window.innerHeight / window.innerWidth;
+}
