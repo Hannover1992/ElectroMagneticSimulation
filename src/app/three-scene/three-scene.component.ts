@@ -11,44 +11,44 @@ import * as THREE from 'three';
 export class ThreeSceneComponent implements AfterViewInit {
   @ViewChild('myCanvas') private canvasRef!: ElementRef;  // Notice the "!" after "ElementRef"
 
-  // Größe des Grids
-  gridSize: number = 10;
-  gridStep: number = 100; // Abstand zwischen den Punkten im Grid
-
   ngAfterViewInit(): void {
-    // Ensure canvasRef is defined
-    if (!this.canvasRef) {
-      console.error('Canvas reference is not found!');
-      return;
-    }
 
-    // Szene erstellen
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x000000);
 
-    // Orthografische Kamera erstellen
-    const aspect = window.innerWidth / window.innerHeight;
-    const camera = new THREE.OrthographicCamera(-aspect, aspect, 1, -1, 0.1, 1000);
-    camera.position.z = 500;
+    const aspect    = window.innerWidth / window.innerHeight;
+    const camera    = new THREE.OrthographicCamera(75, aspect, 0.1, 1000);
 
-    // Renderer erstellen und an das Canvas binden
-    const renderer = new THREE.WebGLRenderer({ canvas: this.canvasRef.nativeElement, antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    const renderer  = new THREE.WebGLRenderer({
+      canvas: this.canvasRef.nativeElement, antialias: true
+    });
 
-    // Kugel erstellen und positionieren
-    const sphereGeometry = new THREE.CircleGeometry(20, 32);
-    const sphereMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }); // Blaue Farbe
-    const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-    sphere.position.set(4 * this.gridStep, 4 * this.gridStep, 0); // Position im Grid 4,4
-    scene.add(sphere);
+
+    renderer.setPixelRatio( window.devicePixelRatio);
+    renderer.setSize(window.innerWidth*0.98, window.innerHeight * 0.98);
+
+    camera.position.setZ(30);
+    camera.position.setX(-30);
+    camera.position.setY(-300);
+
+    const geometry  = new THREE.TorusGeometry(11,3,16,100)
+    const material  = new THREE.MeshBasicMaterial({color: 0xFF6347, wireframe: true});
+    const torus     = new THREE.Mesh(geometry, material);
+
+    scene.add(torus);
 
     // Render-Schleife
     const animate = () => {
       requestAnimationFrame(animate);
 
+      torus.rotation.x = +0.01;
+      torus.rotation.y = +0.01;
+      torus.rotation.z = +0.01;
+
       // Hier könnten Sie die Logik für Bewegungen oder Interaktionen hinzufügen
 
       renderer.render(scene, camera);
+      // animate();
     };
     animate();
   }
