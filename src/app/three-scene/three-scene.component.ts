@@ -19,6 +19,7 @@ export class ThreeSceneComponent implements AfterViewInit {
   pointLight!:        THREE.AmbientLight;
 
   private camera!:    THREE.OrthographicCamera;
+
   private renderer!:  THREE.WebGLRenderer;
 
   controls!: OrbitControls;
@@ -29,13 +30,11 @@ export class ThreeSceneComponent implements AfterViewInit {
     this.initLight();
 
     this.initScene();
+
     this.initCamera();
-    // this.initControls();
     this.preInitRenderer();
   }
-    initControls() {
-      this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-    }
+
 
   initTorus() {
     const geometry  = new THREE.TorusGeometry(11,3,16,100)
@@ -80,17 +79,22 @@ export class ThreeSceneComponent implements AfterViewInit {
     this.postInitControl();
 
 
-      // Render-Schleife
+    // Render-Schleife
     this.animate();
   }
+
   postInitControl() {
-    this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+    this.initControls();
 
     this.controls.addEventListener('change', this.render); // use if there is no animation loop
+    this.controls.minDistance = 20;
+    this.controls.maxDistance = 500;
+    this.controls.enablePan = true;
+  }
 
-      this.controls.minDistance = 20;
-      this.controls.maxDistance = 500;
-      this.controls.enablePan = true;
+
+  initControls() {
+    this.controls = new OrbitControls(this.camera, this.renderer.domElement);
   }
 
 
@@ -104,20 +108,16 @@ export class ThreeSceneComponent implements AfterViewInit {
   }
 
 
-      animate() {
-        requestAnimationFrame(this.animate);
+  animate = () => {
+    requestAnimationFrame(this.animate);
 
-        this.torus.rotation.x += 0.01;
-        this.torus.rotation.y += 0.005;
-        this.torus.rotation.z += 0.01;
+    this.torus.rotation.x += 0.01;
+    this.torus.rotation.y += 0.005;
+    this.torus.rotation.z += 0.01;
 
-        // Hier könnten Sie die Logik für Bewegungen oder Interaktionen hinzufügen
-
-        this.renderer.render(this.scene, this.camera);
-        // this.controls.update();
-        // animate();
-        console.log("animating");
-      };
+    this.render();  // Call this.render which checks for this.renderer
+      console.log("animating");
+  };
 
 
   render() {
