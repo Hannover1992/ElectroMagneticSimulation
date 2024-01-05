@@ -129,6 +129,7 @@ export class ThreeSceneComponent implements AfterViewInit {
 
 }
 
-function calculateRatio() {
+export function calculateRatio() {
   return window.innerHeight / window.innerWidth;
 }
+
