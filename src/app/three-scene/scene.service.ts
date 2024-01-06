@@ -26,7 +26,7 @@ export class SceneService {
   }
 
   addGridHelper(){
-    const gridHelper = new GridHelper(200,50);
+    const gridHelper = new GridHelper(20,20);
     this.scene.add(gridHelper);
   }
 }
