@@ -4,6 +4,7 @@ import { GeometryService } from './geometry.service';
 import { SceneService } from './scene.service';
 import { CameraService } from './camera.service';
 import { RendererService } from './renderer.service';
+import { OrbitControlService } from './orbit-control.service';
 
 
 @Component({
@@ -18,13 +19,11 @@ import { RendererService } from './renderer.service';
 export class ThreeSceneComponent implements AfterViewInit {
   @ViewChild('myCanvas') private canvasRef!: ElementRef;  // Notice the "!" after "ElementRef"
 
-  controls!: OrbitControls;
 
   constructor(
-    private geometryService :GeometryService,
-    private sceneService    :SceneService,
-    private cameraService   :CameraService,
-    private rendererService :RendererService
+    private geometryService     :GeometryService,
+    private rendererService     :RendererService,
+    private orbitControlService :OrbitControlService
   ){
   }
 
@@ -34,24 +33,13 @@ export class ThreeSceneComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.rendererService.initRenderer(this.canvasRef);
+    this.orbitControlService.setParam();
 
-    this.postInitControl();
 
     this.animate();
   }
 
-  postInitControl() {
-    this.initControls();
 
-  }
-
-  initControls() {
-    this.controls = new OrbitControls(this.cameraService.camera, this.rendererService.getDom());
-    this.controls.addEventListener('change', this.rendererService.render); // use if there is no animation loop
-    this.controls.minDistance = 20;
-    this.controls.maxDistance = 500;
-    this.controls.enablePan = true;
-  }
 
 
   animate = () => {
