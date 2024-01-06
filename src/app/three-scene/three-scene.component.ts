@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'; // Import OrbitControls
 import { GeometryService } from './geometry.service';
 import { SceneService } from './scene.service';
+import { CameraService } from './camera.service';
 
 
 @Component({
@@ -17,36 +18,18 @@ import { SceneService } from './scene.service';
 export class ThreeSceneComponent implements AfterViewInit {
   @ViewChild('myCanvas') private canvasRef!: ElementRef;  // Notice the "!" after "ElementRef"
 
-  private camera!:    THREE.OrthographicCamera;
   private renderer!:  THREE.WebGLRenderer;
-
   controls!: OrbitControls;
-
 
   constructor(
     private geometryService :GeometryService,
-    private sceneService    :SceneService
+    private sceneService    :SceneService,
+    private cameraService   :CameraService
   ){
-
-
-    this.initCamera();
     this.preInitRenderer();
   }
 
 
-
-
-
-
-
-  initCamera() {
-    const aspect  =   calculateRatio();   // const camera    = new THREE.OrthographicCamera(75, aspect, 0.1, 1000);
-    const h       =   100; // frustum height
-
-    this.camera = new THREE.OrthographicCamera( - h * aspect / 2, h * aspect / 2, h / 2, - h / 2, 1, 1000 );
-    this.camera.position.set( - 64, - 64, 128 );
-    this.camera.up.set( 0, 0, 1 ); // In our data, z is up
-  }
 
   preInitRenderer(){
     this.renderer  = new THREE.WebGLRenderer();
@@ -54,29 +37,24 @@ export class ThreeSceneComponent implements AfterViewInit {
 
 
   ngAfterViewInit(): void {
-
     this.postInitRender();
     this.postInitControl();
 
-
-    // Render-Schleife
     this.animate();
   }
 
   postInitControl() {
     this.initControls();
 
+  }
+
+  initControls() {
+    this.controls = new OrbitControls(this.cameraService.camera, this.renderer.domElement);
     this.controls.addEventListener('change', this.render); // use if there is no animation loop
     this.controls.minDistance = 20;
     this.controls.maxDistance = 500;
     this.controls.enablePan = true;
   }
-
-
-  initControls() {
-    this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-  }
-
 
   postInitRender() {
     this.renderer  = new THREE.WebGLRenderer({
@@ -87,7 +65,6 @@ export class ThreeSceneComponent implements AfterViewInit {
     this.renderer.setSize(window.innerWidth*0.98, window.innerHeight * 0.98);
   }
 
-
   animate = () => {
     requestAnimationFrame(this.animate);
     this.geometryService.applyTransformationOnTorus();
@@ -97,17 +74,12 @@ export class ThreeSceneComponent implements AfterViewInit {
       console.log("animating");
   };
 
-
   render() {
     if(this.renderer){
-      this.renderer.render(this.sceneService.scene, this.camera);
+      this.renderer.render(this.sceneService.scene, this.cameraService.camera);
     }
   }
 
-
 }
 
-export function calculateRatio() {
-  return window.innerHeight / window.innerWidth;
-}
 
