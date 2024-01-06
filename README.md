@@ -1,6 +1,13 @@
-# ElectricForceSimulation
+**Title: Simplifying Charge Interaction Simulations with Angular and Three.js**
+
+This project is a pioneering attempt to simplify the complex world of electromagnetic interactions through a series of simulations developed using Angular and Three.js. It serves as a sample or template for others looking to understand or teach the fundamental principles of physics in a more engaging and less complicated manner. By leveraging the power of Three.js, known for its robust graphics rendering capabilities, the project vividly brings to life the invisible forces between negatively and positively charged particles.
+
+The core objective of this endeavor is to enhance the visualization and understanding of how negative and positive charges interact and affect each other. The simulations aim to provide a deeper, intuitive understanding of these forces, making the science behind charged particles accessible and compelling. The project particularly focuses on strengthening the conceptual and visual grasp of these interactions, going beyond traditional methods of teaching and learning physics.
+
+As an innovative twist, the project also plans to integrate guitar audio elements, linking the intensity and behavior of charged particle interactions with auditory feedback. This multi-sensory approach not only makes learning more immersive but also helps in drawing parallels between the vibrational nature of sound and the dynamic world of charge interactions.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.9.
+
 
 ## Development server
 
