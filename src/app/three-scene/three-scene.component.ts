@@ -16,7 +16,6 @@ import { AnimationService } from './animation.service';
 export class ThreeSceneComponent implements AfterViewInit {
   @ViewChild('myCanvas') private canvasRef!: ElementRef;  // Notice the "!" after "ElementRef"
 
-
   constructor(
     private rendererService     :RendererService,
     private orbitControlService :OrbitControlService,
