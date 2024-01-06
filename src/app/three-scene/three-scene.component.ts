@@ -47,7 +47,7 @@ export class ThreeSceneComponent implements AfterViewInit {
 
   initControls() {
     this.controls = new OrbitControls(this.cameraService.camera, this.rendererService.getDom());
-    this.controls.addEventListener('change', this.render); // use if there is no animation loop
+    this.controls.addEventListener('change', this.rendererService.render); // use if there is no animation loop
     this.controls.minDistance = 20;
     this.controls.maxDistance = 500;
     this.controls.enablePan = true;
@@ -59,7 +59,7 @@ export class ThreeSceneComponent implements AfterViewInit {
     this.geometryService.applyTransformationOnTorus();
 
 
-    this.render();  // Call this.render which checks for this.renderer
+    this.rendererService.render();  // Call this.render which checks for this.renderer
       console.log("animating");
   };
 

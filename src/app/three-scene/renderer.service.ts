@@ -13,11 +13,9 @@ export class RendererService {
   constructor(
     private sceneService    :SceneService,
     private cameraService   :CameraService,
+
   ) {
     this.renderer  =new WebGLRenderer();
-
-    this.renderer.setPixelRatio( window.devicePixelRatio);
-    this.renderer.setSize(window.innerWidth*0.98, window.innerHeight * 0.98);
   }
 
   render() {
@@ -30,6 +28,8 @@ export class RendererService {
     this.renderer  = new WebGLRenderer({
       canvas: canvas.nativeElement, antialias: true
     });
+
+    this.renderer.setSize(window.innerWidth*0.98, window.innerHeight * 0.98);
   }
 
   getDom(): HTMLElement {
