@@ -24,12 +24,12 @@ export class ArrowsService{
     this.arrows = [];
 
     // Calculate spacing based on grid size
-    const spacingX = GRID_X / 10;
-    const spacingY = GRID_Y / 10;
+    const spacingX = 1;
+    const spacingY = 1;
 
-    for(let i = 0; i <= GRID_X; i += spacingX) {
-      for(let j = 0; j <= GRID_Y; j += spacingY) {
-        const arrow = new ArrowHelper(new Vector3(0, 1, 0), new Vector3(i, 0, j), 1, 0xff0000);
+    for(let i = -GRID_X/2; i <= GRID_X/2; i += spacingX) {
+      for(let j = -GRID_Y/2; j <= GRID_Y/2; j += spacingY) {
+        const arrow = new ArrowHelper(new Vector3(0, 0, 0), new Vector3(i, 0, j), 4, 0xff0000);
         this.arrows.push(arrow);
       }
     }

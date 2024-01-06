@@ -24,7 +24,7 @@ export class ThreeSceneComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.rendererService.initRenderer(this.canvasRef);
-    this.orbitControlService.setParam();
+    this.orbitControlService.setupContro();
     this.animationService.animate();
   }
 

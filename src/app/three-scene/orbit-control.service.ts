@@ -12,8 +12,8 @@ export class OrbitControlService {
   constructor(
     private cameraService  :  CameraService,
     private rendererService:  RendererService  ) {
-      this.controls = new OrbitControls(this.cameraService.camera, this.rendererService.getDom());
     }
+
 
     addLisiter(){
       this.controls.addEventListener('change', this.rendererService.render); // use if there is no animation loop
@@ -27,6 +27,7 @@ export class OrbitControlService {
   }
 
   setupContro(){
+    this.controls = new OrbitControls(this.cameraService.camera, this.rendererService.getDom());
     this.addLisiter();
     this.setParam();
   }
