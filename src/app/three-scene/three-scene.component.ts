@@ -1,10 +1,7 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'; // Import OrbitControls
-import { GeometryService } from './geometry.service';
-import { SceneService } from './scene.service';
-import { CameraService } from './camera.service';
 import { RendererService } from './renderer.service';
 import { OrbitControlService } from './orbit-control.service';
+import { AnimationService } from './animation.service';
 
 
 @Component({
@@ -21,36 +18,16 @@ export class ThreeSceneComponent implements AfterViewInit {
 
 
   constructor(
-    private geometryService     :GeometryService,
     private rendererService     :RendererService,
-    private orbitControlService :OrbitControlService
-  ){
-  }
-
-
-
-
+    private orbitControlService :OrbitControlService,
+    private animationService    :AnimationService
+  ){}
 
   ngAfterViewInit(): void {
     this.rendererService.initRenderer(this.canvasRef);
     this.orbitControlService.setParam();
-
-
-    this.animate();
+    this.animationService.animate();
   }
-
-
-
-
-  animate = () => {
-    requestAnimationFrame(this.animate);
-    this.geometryService.applyTransformationOnTorus();
-
-
-    this.rendererService.render();  // Call this.render which checks for this.renderer
-      console.log("animating");
-  };
-
 
 }
 
