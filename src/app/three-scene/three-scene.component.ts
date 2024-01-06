@@ -1,6 +1,7 @@
-import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'; // Import OrbitControls
+import { GeometryService } from './geometry.service';
 
 
 @Component({
@@ -11,11 +12,11 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'; // Im
   styleUrls: ['./three-scene.component.css']
 })
 
+
 export class ThreeSceneComponent implements AfterViewInit {
   @ViewChild('myCanvas') private canvasRef!: ElementRef;  // Notice the "!" after "ElementRef"
 
   private scene!:     THREE.Scene;
-  torus!:             THREE.Mesh<THREE.TorusGeometry, THREE.MeshBasicMaterial, THREE.Object3DEventMap>;
   pointLight!:        THREE.AmbientLight;
 
   private camera!:    THREE.OrthographicCamera;
@@ -25,8 +26,7 @@ export class ThreeSceneComponent implements AfterViewInit {
   controls!: OrbitControls;
 
 
-  constructor(){
-    this.initTorus();
+  constructor(private geometryService:GeometryService){
     this.initLight();
 
     this.initScene();
@@ -36,11 +36,6 @@ export class ThreeSceneComponent implements AfterViewInit {
   }
 
 
-  initTorus() {
-    const geometry  = new THREE.TorusGeometry(11,3,16,100)
-    const material  = new THREE.MeshBasicMaterial({color: 0xFF6347, wireframe: true});
-    this.torus      = new THREE.Mesh(geometry, material);
-  }
 
   initLight(){
     this.pointLight  = new THREE.AmbientLight(0xffffff);
@@ -54,7 +49,7 @@ export class ThreeSceneComponent implements AfterViewInit {
   }
 
   addToScene() {
-    this.scene.add(this.torus);
+    this.scene.add(this.geometryService.torus);
     this.scene.add(this.pointLight);
   }
 
@@ -111,9 +106,9 @@ export class ThreeSceneComponent implements AfterViewInit {
   animate = () => {
     requestAnimationFrame(this.animate);
 
-    this.torus.rotation.x += 0.01;
-    this.torus.rotation.y += 0.005;
-    this.torus.rotation.z += 0.01;
+    this.geometryService.torus.rotation.x += 0.01;
+    this.geometryService.torus.rotation.y += 0.005;
+    this.geometryService.torus.rotation.z += 0.01;
 
     this.render();  // Call this.render which checks for this.renderer
       console.log("animating");
