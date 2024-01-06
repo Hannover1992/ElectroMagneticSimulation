@@ -1,54 +1,49 @@
 import { Injectable } from '@angular/core';
-import { Mesh } from 'three/src/objects/Mesh';
+import { ConeGeometry, Mesh, MeshNormalMaterial, Vector3 } from 'three';
 import { ChargesService } from './charges.service';
 import { GRID_X, GRID_Y } from './settings';
-import { Vector3 } from 'three/src/math/Vector3';
-import { ArrowHelper } from 'three/src/Three';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ArrowsService{
+export class ArrowsService {
+  arrows: Mesh[] = []; // Array to store arrow meshes
 
-  arrows: ArrowHelper[] = []; // Arrows pointing to the ball
-
-  constructor(
-    private charges:  ChargesService
-  ){
+  constructor(private charges: ChargesService) {
     this.initArrows();
   }
 
-
   initArrows() {
-    // Clear existing arrows
-    this.arrows = [];
-
-    // Calculate spacing based on grid size
     const spacingX = 1;
     const spacingY = 1;
+    const arrowHeight = 1; // Height of the arrow
+    const arrowRadius = 0.1; // Radius of the arrow base
+    const arrowGeometry = new ConeGeometry(arrowRadius, arrowHeight, 8); // Create the geometry once
 
     for(let i = -GRID_X/2; i <= GRID_X/2; i += spacingX) {
       for(let j = -GRID_Y/2; j <= GRID_Y/2; j += spacingY) {
-        const arrow = new ArrowHelper(new Vector3(0, 0, 0), new Vector3(i, 0, j), 4, 0xff0000);
+        const material = new MeshNormalMaterial();
+        const arrow = new Mesh(arrowGeometry, material);
+        arrow.position.set(i, 1, j);
         this.arrows.push(arrow);
       }
     }
   }
 
-  updateArrows() {
-
+  updateArrows(){
     const chargePositionVector = this.charges.getChargePositionVector();
     const position = chargePositionVector[0];
 
-    for (const arrow of this.arrows) {
-      arrow.lookAt(position);
-    }
-  }
+    const positionVector = new Vector3(0,0,0)
 
+    for (const arrow of this.arrows) {
+      // arrow.lookAt(position);
+      arrow.lookAt(positionVector);
+    }
+
+  }
 
   getShapes() {
     return this.arrows;
   }
-
-
 }
