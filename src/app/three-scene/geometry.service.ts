@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import * as THREE from 'three';
+import { TorusGeometry } from 'three/src/geometries/TorusGeometry';
+import { MeshBasicMaterial } from 'three/src/materials/MeshBasicMaterial';
+import { Mesh } from 'three/src/objects/Mesh';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +15,9 @@ export class GeometryService {
   }
 
   initTorus() {
-    const geometry  = new THREE.TorusGeometry(11,3,16,100)
-    const material  = new THREE.MeshBasicMaterial({color: 0xFF6347, wireframe: true});
-    this.torus      = new THREE.Mesh(geometry, material);
+    const geometry  = new TorusGeometry(11,3,16,100)
+    const material  = new MeshBasicMaterial({color: 0xFF6347, wireframe: true});
+    this.torus      = new Mesh(geometry, material);
   }
 
   applyTransformationOnTorus()

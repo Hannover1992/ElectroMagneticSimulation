@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'; // Import OrbitControls
 import { GeometryService } from './geometry.service';
+import { SceneService } from './scene.service';
 
 
 @Component({
@@ -16,20 +17,17 @@ import { GeometryService } from './geometry.service';
 export class ThreeSceneComponent implements AfterViewInit {
   @ViewChild('myCanvas') private canvasRef!: ElementRef;  // Notice the "!" after "ElementRef"
 
-  private scene!:     THREE.Scene;
-  pointLight!:        THREE.AmbientLight;
-
   private camera!:    THREE.OrthographicCamera;
-
   private renderer!:  THREE.WebGLRenderer;
 
   controls!: OrbitControls;
 
 
-  constructor(private geometryService:GeometryService){
-    this.initLight();
+  constructor(
+    private geometryService :GeometryService,
+    private sceneService    :SceneService
+  ){
 
-    this.initScene();
 
     this.initCamera();
     this.preInitRenderer();
@@ -37,21 +35,8 @@ export class ThreeSceneComponent implements AfterViewInit {
 
 
 
-  initLight(){
-    this.pointLight  = new THREE.AmbientLight(0xffffff);
-    this.pointLight.position.set(5,5,5);
-  }
 
-  initScene() {
-    this.scene            = new THREE.Scene();
-    this.scene.background = new THREE.Color(0x000000);
-    this.addToScene();
-  }
 
-  addToScene() {
-    this.scene.add(this.geometryService.torus);
-    this.scene.add(this.pointLight);
-  }
 
 
   initCamera() {
@@ -115,7 +100,7 @@ export class ThreeSceneComponent implements AfterViewInit {
 
   render() {
     if(this.renderer){
-      this.renderer.render(this.scene, this.camera);
+      this.renderer.render(this.sceneService.scene, this.camera);
     }
   }
 
