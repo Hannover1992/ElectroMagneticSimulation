@@ -34,7 +34,7 @@ export class ArrowsService {
     const chargePositionVector = this.charges.getChargePositionVector();
     const position = chargePositionVector[0];
 
-    const positionVector = new Vector3(0,0,0)
+    const positionVector = new Vector3(position.x,-100,position.y)
 
     for (const arrow of this.arrows) {
       // arrow.lookAt(position);
