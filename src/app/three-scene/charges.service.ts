@@ -24,17 +24,17 @@ export class ChargesService {
 
   createCharge() {
     const geometry = new SphereGeometry(0.1, 30, 30); // Small sphere for the ball
-    const material = new MeshBasicMaterial({ color: 0x0000FF });
+      const material = new MeshBasicMaterial({ color: 0x0000FF });
     return new Mesh(geometry, material);
   }
 
   initOnCenter() {
     for (const charge of this.chargeArr) {
-      charge.position.set(0, 0, 0);
+      charge.position.set(4, 0, 0);
     }
   }
 
-  getChargePositionVector(): Vector3[] {
+  getChargePositionArray(): Vector3[] {
     const vecArr: Vector3[] =  [];
     for (const charge of this.chargeArr) {
       const vec =new Vector3(charge.position.x, charge.position.y, charge.position.z);
@@ -45,6 +45,11 @@ export class ChargesService {
 
   getShapes() {
     return this.chargeArr;
+  }
+
+
+  getChargeMagnitude (){
+    return 1;
   }
 
 }

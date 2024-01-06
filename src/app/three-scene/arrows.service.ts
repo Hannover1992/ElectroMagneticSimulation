@@ -17,31 +17,46 @@ export class ArrowsService {
     const spacingX = 1;
     const spacingY = 1;
     const arrowHeight = 1; // Height of the arrow
-    const arrowRadius = 0.1; // Radius of the arrow base
+    const arrowRadius = 0.04; // Radius of the arrow base
     const arrowGeometry = new ConeGeometry(arrowRadius, arrowHeight, 8); // Create the geometry once
 
-    for(let i = -GRID_X/2; i <= GRID_X/2; i += spacingX) {
-      for(let j = -GRID_Y/2; j <= GRID_Y/2; j += spacingY) {
+    for (let i = -GRID_X / 2; i <= GRID_X / 2; i += spacingX) {
+      for (let j = -GRID_Y / 2; j <= GRID_Y / 2; j += spacingY) {
         const material = new MeshNormalMaterial();
         const arrow = new Mesh(arrowGeometry, material);
-        arrow.position.set(i, 1, j);
+        arrow.position.set(i, j, 0);
         this.arrows.push(arrow);
       }
     }
   }
 
-  updateArrows(){
-    const chargePositionVector = this.charges.getChargePositionVector();
-    const position = chargePositionVector[0];
+updateArrows() {
+  const chargePositionArray = this.charges.getChargePositionArray();
+  const chargePosition: Vector3 = chargePositionArray[0]; // Assuming single charge
 
-    const positionVector = new Vector3(position.x,-100,position.y)
+  // Correct this line to fetch or define the actual charge magnitude
+  const chargeMagnitude = this.charges.getChargeMagnitude(); // This method should return the magnitude of the charge
 
-    for (const arrow of this.arrows) {
-      // arrow.lookAt(position);
-      arrow.lookAt(positionVector);
-    }
+  for (const arrow of this.arrows) {
 
+    const rVector = arrow.position.clone().sub(chargePosition); // Calculate relative position
+    const rMagnitude = rVector.length();
+
+    // Calculate electric field magnitude
+    const EFieldMagnitude: number = chargeMagnitude / rMagnitude;
+
+    // Calculate electric field direction
+    const EFieldDirection: Vector3 = rVector.normalize().multiplyScalar(EFieldMagnitude);
+
+    // Orient the arrow along the electric field vector
+    arrow.lookAt(EFieldDirection.add(arrow.position)); // Add the position to get the absolute world position for lookAt
+
+    // Optional: Scale the arrow length based on the electric field magnitude
+    // arrow.scale.setScalar(Math.abs(EFieldMagnitude));
   }
+
+
+}
 
   getShapes() {
     return this.arrows;

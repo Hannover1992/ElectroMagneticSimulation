@@ -28,8 +28,8 @@ export class SceneService {
   }
 
   addGridHelper(){
-    const gridHelper = new GridHelper(GRID_X,GRID_Y);
-    this.scene.add(gridHelper);
+    // const gridHelper = new GridHelper(GRID_X,GRID_Y);
+    // this.scene.add(gridHelper);
   }
 
 }
