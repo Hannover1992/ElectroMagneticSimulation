@@ -18,4 +18,12 @@ export class GeometryService {
     this.torus      = new THREE.Mesh(geometry, material);
   }
 
+  applyTransformationOnTorus()
+  {
+    this.torus.rotation.x += 0.01;
+    this.torus.rotation.y += 0.005;
+    this.torus.rotation.z += 0.01;
+  }
+
+
 }

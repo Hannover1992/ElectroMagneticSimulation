@@ -105,10 +105,8 @@ export class ThreeSceneComponent implements AfterViewInit {
 
   animate = () => {
     requestAnimationFrame(this.animate);
+    this.geometryService.applyTransformationOnTorus();
 
-    this.geometryService.torus.rotation.x += 0.01;
-    this.geometryService.torus.rotation.y += 0.005;
-    this.geometryService.torus.rotation.z += 0.01;
 
     this.render();  // Call this.render which checks for this.renderer
       console.log("animating");
