@@ -16,7 +16,7 @@ export class GeometryService {
 
   initTorus() {
     const geometry  = new TorusGeometry(11,3,16,100)
-    const material  = new MeshBasicMaterial({color: 0xFF6347, wireframe: true});
+    const material  = new MeshBasicMaterial({color: 0xFF6347});
     this.torus      = new Mesh(geometry, material);
   }
 

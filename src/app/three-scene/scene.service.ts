@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { GeometryService } from './geometry.service';
 import { LightService } from './light.service';
-import { Color, Scene } from 'three/src/Three';
+import { Color, GridHelper, Scene } from 'three/src/Three';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SceneService {
-  scene!:     THREE.Scene;
+  scene!:     Scene;
 
   constructor(
     private geometryService:  GeometryService,
@@ -22,5 +22,11 @@ export class SceneService {
   addToScene() {
     this.scene.add(this.geometryService.torus);
     this.scene.add(this.lightService.pointLight);
+    this.addGridHelper();
+  }
+
+  addGridHelper(){
+    const gridHelper = new GridHelper(200,50);
+    this.scene.add(gridHelper);
   }
 }
