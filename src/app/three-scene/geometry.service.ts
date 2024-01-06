@@ -1,31 +1,41 @@
+
 import { Injectable } from '@angular/core';
-import { TorusGeometry } from 'three/src/geometries/TorusGeometry';
+import { SphereGeometry } from 'three/src/geometries/SphereGeometry';
 import { MeshBasicMaterial } from 'three/src/materials/MeshBasicMaterial';
 import { Mesh } from 'three/src/objects/Mesh';
+import { ChargesService } from './charges.service';
+import { ArrowsService } from './arrows.service';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class GeometryService {
+  shapes!: Mesh;
 
-  torus!:             THREE.Mesh<THREE.TorusGeometry, THREE.MeshBasicMaterial, THREE.Object3DEventMap>;
-
-  constructor(){
-    this.initTorus();
+  constructor(
+    private arrows  :ArrowsService,
+    private charges  :ChargesService
+  ) {
+    this.initAllShapes();
   }
 
-  initTorus() {
-    const geometry  = new TorusGeometry(11,3,16,100)
-    const material  = new MeshBasicMaterial({color: 0xFF6347});
-    this.torus      = new Mesh(geometry, material);
+  update(){
+    this.arrows.updateArrows();
   }
 
-  applyTransformationOnTorus()
-  {
-    this.torus.rotation.x += 0.01;
-    this.torus.rotation.y += 0.005;
-    this.torus.rotation.z += 0.01;
+
+  initAllShapes(){
+    // let shapes = {};
+    // shapes = {...this.arrows.getShapes(), ...shapes};
+    this.shapes = this.charges.getShapes();
+  }
+
+  getAllShacpes(){
+    return this.shapes;
   }
 
 
 }
+
+
