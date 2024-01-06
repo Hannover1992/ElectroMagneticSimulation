@@ -5,18 +5,20 @@ import { MeshBasicMaterial } from 'three/src/materials/MeshBasicMaterial';
 import { Mesh } from 'three/src/objects/Mesh';
 import { ChargesService } from './charges.service';
 import { ArrowsService } from './arrows.service';
+import { ArrowHelper } from 'three';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class GeometryService {
-  shapes!: Mesh;
+  shapes!: (Mesh | ArrowHelper)[];
 
   constructor(
     private arrows  :ArrowsService,
     private charges  :ChargesService
   ) {
+    this.shapes = [];
     this.initAllShapes();
   }
 
@@ -28,10 +30,14 @@ export class GeometryService {
   initAllShapes(){
     // let shapes = {};
     // shapes = {...this.arrows.getShapes(), ...shapes};
-    this.shapes = this.charges.getShapes();
+    this.shapes = [
+      ...this.arrows.getShapes(),
+      ...this.charges.getShapes()
+
+    ];
   }
 
-  getAllShacpes(){
+  getAllShapes(){
     return this.shapes;
   }
 

@@ -22,7 +22,7 @@ export class SceneService {
 
 
   addToScene() {
-    this.scene.add(this.geometryService.getAllShacpes()); // Add the central ball
+    this.scene.add(...this.geometryService.getAllShapes()); // Add the central ball
     this.scene.add(this.lightService.pointLight);
     this.addGridHelper();
   }

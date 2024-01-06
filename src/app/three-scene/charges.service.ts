@@ -9,30 +9,42 @@ import { Vector3 } from 'three'; // Import Vector3 from three.js
 })
 export class ChargesService {
 
-  charge!: Mesh;
+  chargeArr!: Mesh[];
 
   constructor() {
+    this.chargeArr = [];
     this.initCharge();
     this.initOnCenter();
   }
 
   initCharge() {
+    const charge: Mesh = this.createCharge();
+    this.chargeArr.push(charge);
+  }
+
+  createCharge() {
     const geometry = new SphereGeometry(0.1, 30, 30); // Small sphere for the ball
     const material = new MeshBasicMaterial({ color: 0x0000FF });
-    this.charge = new Mesh(geometry, material);
+    return new Mesh(geometry, material);
   }
 
   initOnCenter() {
-    this.charge.position.set(0, 0, 0);
+    for (const charge of this.chargeArr) {
+      charge.position.set(0, 0, 0);
+    }
   }
 
-  getChargePositionVector(): Vector3 {
-    return new Vector3(this.charge.position.x, this.charge.position.y, this.charge.position.z);
+  getChargePositionVector(): Vector3[] {
+    const vecArr: Vector3[] =  [];
+    for (const charge of this.chargeArr) {
+      const vec =new Vector3(charge.position.x, charge.position.y, charge.position.z);
+      vecArr.push(vec);
+    }
+    return vecArr;
   }
-
 
   getShapes() {
-    return this.charge;
+    return this.chargeArr;
   }
 
 }
