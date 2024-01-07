@@ -33,7 +33,7 @@ export class GeometryService {
     // shapes = {...this.arrows.getShapes(), ...shapes};
     this.shapes = [
       ...this.arrows.getShapes(),
-      ...this.charges.getShapes()
+      ...this.charges.getMeshes()
     ];
   }
 

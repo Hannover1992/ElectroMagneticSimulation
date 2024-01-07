@@ -10,7 +10,7 @@ export class CameraService {
 
 constructor() {
     const aspect = this.calculateRatio();
-    const h = 30; // Frustum height
+    const h = 100; // Frustum height
 
     this.camera = new OrthographicCamera(-h * aspect , h * aspect , h / 2, -h / 2, 1, 1000);
 
