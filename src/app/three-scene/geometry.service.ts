@@ -23,7 +23,8 @@ export class GeometryService {
   }
 
   update(){
-    this.arrows.updateArrows();
+    this.arrows.update();
+    this.charges.update();
   }
 
 
