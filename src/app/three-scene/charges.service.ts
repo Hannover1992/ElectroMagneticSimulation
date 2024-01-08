@@ -4,6 +4,7 @@ import { MeshBasicMaterial } from 'three/src/materials/MeshBasicMaterial';
 import { Mesh } from 'three/src/objects/Mesh';
 import { Vector3 } from 'three'; // Import Vector3 from three.js
 import { GRID_X_MAX, GRID_X_MIN, GRID_Y_MAX, GRID_Y_MIN, NUMER_OF_CHARGES } from './settings';
+import { k } from './PhysicalConstant';
 
 
 
@@ -12,7 +13,8 @@ import { GRID_X_MAX, GRID_X_MIN, GRID_Y_MAX, GRID_Y_MIN, NUMER_OF_CHARGES } from
 })
 export class ChargesService {
 
-  chargeArr!: {mesh: Mesh, magnitude: number, velocity: Vector3, direction: Vector3}[];
+  chargeArr!: {mesh: Mesh, magnitude: number, velocity: Vector3, direction: Vector3, mass: number}[];
+      // Add a 'mass' property
 
 
 
@@ -33,6 +35,7 @@ export class ChargesService {
             magnitude: magnitude,
             velocity: new Vector3(),
             direction: new Vector3(),
+            mass: 1, // Set the mass property
           });
     }
   }
@@ -43,17 +46,36 @@ export class ChargesService {
     return new Mesh(geometry,material);
   }
 
-  update() {
-    for (const charge of this.chargeArr) {
-      // Update position based on velocity
-      const deltaTime = 1; // Assuming deltaTime is defined
-      const deltaMove = charge.velocity.clone().multiplyScalar(deltaTime);
-      charge.mesh.position.add(deltaMove);
+// Update the movement of charges in ChargesService
+update() {
+  for (const charge of this.chargeArr) {
+    // Calculate the force acting on the charge due to other charges
+    const totalForce = new Vector3(0, 0, 0); // Start with a zero vector for the total force
 
-      // Random small adjustment to velocity or direction
-      charge.velocity.add(new Vector3(this.randomSmallChange(), this.randomSmallChange(), 0));
+    for (const otherCharge of this.chargeArr) {
+      if (otherCharge !== charge) {
+        const rVector = otherCharge.mesh.position.clone().sub(charge.mesh.position); // Calculate relative position
+        const rMagnitude = rVector.length();
+        if (rMagnitude < 1) continue;
+
+        // Calculate the force magnitude due to this charge using Coulomb's law
+        const forceMagnitude = -k * charge.magnitude * otherCharge.magnitude / (rMagnitude * rMagnitude);
+
+        // Add the force contribution from this charge to the total force
+        totalForce.add(rVector.clone().normalize().multiplyScalar(forceMagnitude));
+      }
     }
+
+    // Calculate the acceleration based on the total force
+    const acceleration = totalForce.divideScalar(charge.mass); // Assuming charge has mass
+
+    // Update the velocity and position based on the calculated acceleration
+    const deltaTime = 0.1; // Assuming deltaTime is defined
+    charge.velocity.add(acceleration.multiplyScalar(deltaTime));
+    const deltaMove = charge.velocity.clone().multiplyScalar(deltaTime);
+    charge.mesh.position.add(deltaMove);
   }
+}
 
   randomSmallChange(): number {
     return Math.random() * 0.1 - 0.05;

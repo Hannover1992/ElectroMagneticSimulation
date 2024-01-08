@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ConeGeometry, Mesh, MeshNormalMaterial, Vector3 } from 'three';
 import { ChargesService } from './charges.service';
 import { GRID_X_MIN, GRID_X_MAX, GRID_Y_MIN, GRID_Y_MAX, GRID_Z_MIN, GRID_Z_MAX} from './settings';
+import { k } from './PhysicalConstant';
 
 @Injectable({
   providedIn: 'root'
@@ -35,9 +36,6 @@ export class ArrowsService {
   }
 
   update() {
-    // Constants
-    const k = 1 / (4 * Math.PI * 8.854187817e-12); // Coulomb's constant (in vacuum)
-
     for (const arrowData of this.arrows) {
       const arrow = arrowData.arrow;
       const totalEField = new Vector3(0, 0, 0); // Start with a zero vector for the total electric field
@@ -74,3 +72,13 @@ export class ArrowsService {
     return this.arrows.map(arrowData => arrowData.arrow);
   }
 }
+
+
+
+
+
+
+
+
+
+
