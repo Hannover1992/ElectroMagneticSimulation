@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { OrthographicCamera } from 'three/src/cameras/OrthographicCamera';
+import { OrthographicCamera} from 'three';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class CameraService {
 
 constructor() {
     const aspect = this.calculateRatio();
-    const h = 100; // Frustum height
+    const h = 40; // Frustum height
 
     this.camera = new OrthographicCamera(-h * aspect , h * aspect , h / 2, -h / 2, 1, 1000);
 

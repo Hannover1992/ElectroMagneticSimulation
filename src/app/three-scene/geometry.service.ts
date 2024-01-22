@@ -1,8 +1,5 @@
-
 import { Injectable } from '@angular/core';
-import { SphereGeometry } from 'three/src/geometries/SphereGeometry';
-import { MeshBasicMaterial } from 'three/src/materials/MeshBasicMaterial';
-import { Mesh } from 'three/src/objects/Mesh';
+import { Mesh } from 'three';
 import { ChargesService } from './charges.service';
 import { ArrowsService } from './arrows.service';
 import { ArrowHelper } from 'three';

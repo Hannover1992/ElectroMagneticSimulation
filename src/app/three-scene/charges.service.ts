@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { SphereGeometry } from 'three/src/geometries/SphereGeometry';
-import { MeshBasicMaterial } from 'three/src/materials/MeshBasicMaterial';
-import { Mesh } from 'three/src/objects/Mesh';
+import { SphereGeometry } from 'three';
+import { MeshBasicMaterial } from 'three';
+import { Mesh } from 'three';
 import { Vector3 } from 'three'; // Import Vector3 from three.js
 import { GRID_X_MAX, GRID_X_MIN, GRID_Y_MAX, GRID_Y_MIN, NUMER_OF_CHARGES } from './settings';
 import { k } from './PhysicalConstant';

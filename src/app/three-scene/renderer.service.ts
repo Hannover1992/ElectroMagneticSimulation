@@ -1,5 +1,5 @@
 import { Injectable, ElementRef} from '@angular/core';
-import { WebGLRenderer } from 'three/src/renderers/WebGLRenderer';
+import { WebGLRenderer } from 'three';
 import { CameraService } from './camera.service';
 import { SceneService } from './scene.service';
 

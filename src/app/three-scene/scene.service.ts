@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { GeometryService } from './geometry.service';
 import { LightService } from './light.service';
-import { Color, Scene } from 'three/src/Three';
+import { Color, Scene } from 'three';
 
 @Injectable({
   providedIn: 'root'
