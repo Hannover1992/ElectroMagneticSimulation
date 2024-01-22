@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
+import { Vector3 } from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { CameraService } from './camera.service';
 import { RendererService } from './renderer.service';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { Vector3 } from 'three';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class OrbitControlService {
     this.controls.minDistance = 20;
     this.controls.maxDistance = 500;
     this.controls.enablePan = true;
-    this.controls.addEventListener('change', this.rendererService.render); // use if there is no animation loop
+    // this.controls.addEventListener('change', this.rendererService.render); // use if there is no animation loop
   }
 
   addKeyboardListeners() {
