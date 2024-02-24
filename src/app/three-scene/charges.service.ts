@@ -21,8 +21,8 @@ export class ChargesService {
   constructor() {
     this.chargeArr = [];
     this.initCharge();
-    // this.randomPosition();
-    this.condensatorPosition();
+    this.randomPosition();
+    // this.condensatorPosition();
   }
 
   initCharge() {
