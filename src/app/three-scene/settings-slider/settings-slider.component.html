@@ -3,7 +3,7 @@
     <h2>Result</h2>
 
     <div class="example-label-container">
-      <label id="example-name-label" class="example-name-label">Value</label>
+      <label id="example-name-label" class="example-name-label">Number of Charges:</label>
       <label class="example-value-label">{{slider.value}}</label>
     </div>
     <mat-slider
@@ -16,5 +16,12 @@
 
       <input matSliderThumb [(ngModel)]="number_of_charges" (ngModelChange)="updateNumberOfCharges()" #slider>
     </mat-slider>
+
+    <div *ngIf="number_of_charges > 50 && number_of_charges <= 100" class="warning">
+      Warnung: Hohe Ladungszahl kann die Performance beeinträchtigen.
+    </div>
+    <div *ngIf="number_of_charges > 100" class="error">
+      Fehler: Sehr hohe Ladungszahl kann zu erheblichen Einbußen führen.
+    </div>
   </mat-card-content>
 </mat-card>

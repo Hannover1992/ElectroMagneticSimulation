@@ -1,5 +1,15 @@
-.mainFrame{
-  background-color: red;
+app-three-scene {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  z-index: -1; /* Stellt sicher, dass dies hinter anderen Inhalten bleibt */
+}
+
+/* Andere Inhalte sollten eine höhere z-index Nummer haben, um darüber zu sein */
+main {
+  position: absolute;
+  /* Setzen Sie die benötigten Koordinaten und Größe */
+  z-index: 10; /* Stellt sicher, dass der Hauptinhalt oben ist */
 }

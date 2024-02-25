@@ -1,0 +1,12 @@
+
+.example-margin {
+  width: 100%; /* Oder eine spezifische Breite, z.B. 400px */
+}
+
+.warning {
+  color: #FFC107; /* Gelb */
+}
+
+.error {
+  color: #F44336; /* Rot */
+}

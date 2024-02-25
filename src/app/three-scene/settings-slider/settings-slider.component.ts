@@ -32,7 +32,6 @@ export class SettingsSliderComponent {
     private settingsService:SettingsService
   ) {
       this.number_of_charges = this.settingsService.numberOfChargesSource.value;
-
     }
 
 
@@ -40,5 +39,15 @@ export class SettingsSliderComponent {
       this.settingsService.numberOfChargesSource.next(this.number_of_charges);
     }
 
+
+
+
+  getDescriptionForValue(value: number): string {
+    if (value > 50) {
+      return 'Mit einer höheren Anzahl an Ladungen sinkt die Anzahl der Frames.';
+    } else {
+      return 'Die Anzahl der Frames bleibt stabil.';
+    }
+  }
 
 }
