@@ -50,20 +50,20 @@ export class ArrowsService {
         const rUnitVector = rVector.clone().normalize(); // Unit vector in the direction of the field
 
         // Calculate electric field magnitude due to this charge
-        const EFieldMagnitude = -k * chargeMagnitude / (rMagnitude * rMagnitude);
+        const EFieldMagnitude = k * chargeMagnitude / (rMagnitude * rMagnitude);
 
         // Add the field contribution from this charge to the total field
         totalEField.add(rUnitVector.multiplyScalar(EFieldMagnitude));
       };
 
     // Calculate the rotated vector
-    let rotatedEField = new Vector3(-totalEField.y, totalEField.x, totalEField.z);
+    let rotatedEField = new Vector3(totalEField.y, -totalEField.x, totalEField.z);
 
     // Use the rotated vector for orientation
     arrow.lookAt(rotatedEField.add(arrow.position));
 
       // Optional: Scale the arrow length based on the electric field magnitude
-      arrow.scale.setScalar(Math.abs(totalEField.length() * 20));
+      arrow.scale.setScalar(totalEField.length() * 20);
 
       // Store the field magnitude and direction for the arrow
       arrowData.fieldMagnitude = totalEField.length();
