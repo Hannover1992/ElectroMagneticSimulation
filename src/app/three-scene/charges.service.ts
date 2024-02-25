@@ -5,6 +5,7 @@ import { Mesh } from 'three';
 import { Vector3 } from 'three'; // Import Vector3 from three.js
 import { GRID_X_MAX, GRID_X_MIN, GRID_Y_MAX, GRID_Y_MIN, NUMER_OF_CHARGES } from './settings';
 import { k } from './PhysicalConstant';
+import { SettingsService } from './settings.service';
 
 
 
@@ -15,18 +16,21 @@ export class ChargesService {
 
   chargeArr!: {mesh: Mesh, magnitude: number, velocity: Vector3, direction: Vector3, mass: number}[];
   // Add a 'mass' property
+  number_of_charges: number;
 
 
 
-  constructor() {
-    this.chargeArr = [];
-    this.initCharge();
-    this.randomPosition();
-    // this.condensatorPosition();
+  constructor(
+    private settingsService:SettingsService
+  ) {
+      this.number_of_charges = this.settingsService.numberOfChargesSource.value;
+      this.initCharge(this.number_of_charges);
+
   }
 
-  initCharge() {
-    for (let j = 0; j < NUMER_OF_CHARGES; j++){
+  initCharge(number_of_charges: number) {
+    this.chargeArr = [];
+    for (let j = 0; j < number_of_charges; j++){
       // Alternate between positive and negative charges
       const magnitude = j % 2 === 0 ? 1 : -1; // Positive for even indices, negative for odd
         const color = magnitude === 1 ? 0xff0000 : 0x0000ff; // Red for positive, Blue for negative
@@ -38,6 +42,8 @@ export class ChargesService {
             mass: 1, // Set the mass property
           });
     }
+      this.randomPosition();
+    // this.condensatorPosition();
   }
 
   createCharge(color: number) {

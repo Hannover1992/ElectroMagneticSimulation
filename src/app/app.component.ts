@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { ThreeSceneComponent } from './three-scene/three-scene.component';
 import { MathJaxComponent } from "./math-jax/math-jax.component";
+import { SettingsSliderComponent } from "./three-scene/settings-slider/settings-slider.component";
 
 
 @Component({
@@ -14,7 +15,8 @@ import { MathJaxComponent } from "./math-jax/math-jax.component";
         CommonModule,
         RouterOutlet,
         ThreeSceneComponent,
-        MathJaxComponent
+        MathJaxComponent,
+        SettingsSliderComponent
     ]
 })
 export class AppComponent {
