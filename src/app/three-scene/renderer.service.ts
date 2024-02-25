@@ -13,7 +13,6 @@ export class RendererService {
   constructor(
     private sceneService    :SceneService,
     private cameraService   :CameraService,
-
   ) {
     this.renderer  =new WebGLRenderer();
   }

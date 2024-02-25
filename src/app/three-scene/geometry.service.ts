@@ -13,10 +13,10 @@ export class GeometryService {
 
   constructor(
     private arrows  :ArrowsService,
-    private charges  :ChargesService
+    private charges  :ChargesService,
   ) {
-    this.shapes = [];
-    this.initAllShapes();
+      this.shapes = [];
+      this.initAllShapes();
   }
 
   update(){
@@ -26,8 +26,6 @@ export class GeometryService {
 
 
   initAllShapes(){
-    // let shapes = {};
-    // shapes = {...this.arrows.getShapes(), ...shapes};
     this.shapes = [
       ...this.arrows.getShapes(),
       ...this.charges.getMeshes()
@@ -35,6 +33,7 @@ export class GeometryService {
   }
 
   getAllShapes(){
+    this.initAllShapes();
     return this.shapes;
   }
 

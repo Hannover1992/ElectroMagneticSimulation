@@ -3,7 +3,7 @@ import { SphereGeometry } from 'three';
 import { MeshBasicMaterial } from 'three';
 import { Mesh } from 'three';
 import { Vector3 } from 'three'; // Import Vector3 from three.js
-import { GRID_X_MAX, GRID_X_MIN, GRID_Y_MAX, GRID_Y_MIN, NUMER_OF_CHARGES } from './settings';
+import { GRID_X_MAX, GRID_X_MIN, GRID_Y_MAX, GRID_Y_MIN  } from './settings';
 import { k } from './PhysicalConstant';
 import { SettingsService } from './settings.service';
 
@@ -24,6 +24,10 @@ export class ChargesService {
     private settingsService:SettingsService
   ) {
       this.number_of_charges = this.settingsService.numberOfChargesSource.value;
+
+      this.settingsService.numberOfChargesSource.subscribe(newNrOfCharges =>{
+        this.initCharge(newNrOfCharges);
+      });
       this.initCharge(this.number_of_charges);
 
   }

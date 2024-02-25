@@ -5,6 +5,7 @@ import {MatCheckboxModule   } from '@angular/material/checkbox';
 import {MatInputModule      } from '@angular/material/input';
 import {MatFormFieldModule  } from '@angular/material/form-field';
 import {MatCardModule       } from '@angular/material/card';
+import { SettingsService } from '../settings.service';
 
 @Component({
   selector: 'app-settings-slider',
@@ -22,11 +23,22 @@ import {MatCardModule       } from '@angular/material/card';
 export class SettingsSliderComponent {
   gridSizeMax = 100;
   gridSizeMin = 0;
-  step = 1;
-  value = 20;
   showTicks = false;
   thumbLabel = false;
+  number_of_charges: number;
 
 
-  numberOfCharges: number = 2;  // Ensure this is a number as well
+  constructor(
+    private settingsService:SettingsService
+  ) {
+      this.number_of_charges = this.settingsService.numberOfChargesSource.value;
+
+    }
+
+
+    updateNumberOfCharges() {
+      this.settingsService.numberOfChargesSource.next(this.number_of_charges);
+    }
+
+
 }

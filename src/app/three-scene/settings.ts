@@ -1,5 +1,4 @@
-export const GRIDE_SIZE = 20;
-export const NUMER_OF_CHARGES = 2;
+export const GRIDE_SIZE = 50;
 
 export const GRID_X_MIN = -GRIDE_SIZE;
 export const GRID_X_MAX = +GRIDE_SIZE;

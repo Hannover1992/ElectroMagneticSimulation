@@ -11,10 +11,10 @@
         [disabled]="false"
         [max]="gridSizeMax"
         [min]="gridSizeMin"
-        [step]="step"
         [discrete]="thumbLabel"
         [showTickMarks]="showTicks">
-      <input matSliderThumb [(ngModel)]="value" #slider>
+
+      <input matSliderThumb [(ngModel)]="number_of_charges" (ngModelChange)="updateNumberOfCharges()" #slider>
     </mat-slider>
   </mat-card-content>
 </mat-card>
