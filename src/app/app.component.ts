@@ -2,9 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { ThreeSceneComponent } from './three-scene/three-scene.component';
-import { MathJaxComponent } from "./math-jax/math-jax.component";
-import { SettingsSliderComponent } from "./three-scene/settings-slider/settings-slider.component";
-
+import { TillesComponent } from "./tilles/tilles.component";
 
 @Component({
     selector: 'app-root',
@@ -15,8 +13,7 @@ import { SettingsSliderComponent } from "./three-scene/settings-slider/settings-
         CommonModule,
         RouterOutlet,
         ThreeSceneComponent,
-        MathJaxComponent,
-        SettingsSliderComponent
+        TillesComponent
     ]
 })
 export class AppComponent {

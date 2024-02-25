@@ -13,3 +13,16 @@ main {
   /* Setzen Sie die benötigten Koordinaten und Größe */
   z-index: 10; /* Stellt sicher, dass der Hauptinhalt oben ist */
 }
+
+#slider_div{
+  background-color: red;
+}
+
+#tile_with_settings{
+  display: flex;
+  justify-content: left;
+}
+
+#mat-grid-tile-content{
+  justify-content: left;
+}
