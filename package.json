@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod --output-path=dist/electric-force-simulation",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
