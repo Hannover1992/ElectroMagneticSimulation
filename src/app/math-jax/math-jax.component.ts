@@ -14,15 +14,9 @@ export class MathJaxComponent implements AfterViewInit {
   @ViewChild('mathJaxContainer') mathJaxContainer!: ElementRef;
   @Input() mathContent: string = `
   <div>
-    <h1>Understanding Electric Forces and Fields</h1>
-    <section>
-      <h2>Step 1: Coulomb's Law</h2>
-      <p>Coulomb's Law states that the force \\(F\\) between two point charges is proportional to the product of their charges and inversely proportional to the square of the distance between them. The force is given by:</p>
-      <p>\\[F = k \\cdot \\frac{q_1 q_2}{r^2}\\]</p>
-    </section>
     <section>
       <h2>Step 2: The Electric Field</h2>
-      <p>The electric field \\(E\\) at a point in space is defined as the force \\(F\\) per unit charge \\(q\\) that a positive test charge would experience if placed at that point. It is given by:</p>
+      <p>The electric field E at a point in space is defined as the force F per unit charge q that a positive test charge would experience if placed at that point. It is given by:
       <p>\\[E = k \\cdot \\frac{q}{r^2}\\]</p>
     </section>
     <section>
