@@ -1,0 +1,11 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>About the Electric Field Simulation</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p>This simulation is based on numerical integration over time to compute the movement of electric charges and the resulting electric forces between them. Utilizing Coulomb's Law, the force between every pair of charges is determined. The superposition of these forces allows us to calculate the resultant force on each charge, leading to the update of their acceleration, velocity, and position over time.</p>
+    <p>In the <code>update</code> function of the <code>charges.service.ts</code> file, the total force on each charge is calculated by summing the contributions from all other charges. Additionally, the visualization of electric field lines is implemented in the <code>arrows.service.ts</code> file by calculating the electric field strength at various points in space.</p>
+    <p>For more detailed insights and code examples, feel free to visit my GitHub repository:</p>
+    <a href="https://github.com/Hannover1992/ElectroMagneticSimulation">GitHub Repository</a>
+  </mat-card-content>
+</mat-card>

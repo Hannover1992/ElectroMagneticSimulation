@@ -5,6 +5,7 @@ import { ColombsLawComponent } from '../math-jax/colombs-law/colombs-law.compone
 import {MatGridListModule} from '@angular/material/grid-list';
 import { ElectricFiealdCardComponent } from "../math-jax/electric-fieald-card/electric-fieald-card.component";
 import { SuperPositionCardComponent } from "../math-jax/super-position-card/super-position-card.component";
+import { DescriptionSimulationComponent } from '../math-jax/description-simulation/description-simulation.component';
 
 
 
@@ -19,7 +20,8 @@ import { SuperPositionCardComponent } from "../math-jax/super-position-card/supe
         ColombsLawComponent,
         MatGridListModule,
         ElectricFiealdCardComponent,
-        SuperPositionCardComponent
+        SuperPositionCardComponent,
+        DescriptionSimulationComponent
     ]
 })
 export class TillesComponent {
